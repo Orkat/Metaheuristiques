@@ -14,11 +14,13 @@ class SimulatedAnnealingConvergence():
         pass
 
 
-    def perform_simulation(self, n_side, seed_value, initial_temperature, max_iterations):
+    def perform_simulation(self, n_side, seed_value, initial_temperature, max_iterations, save_circuits=False, save_n_iterations=100):
 
         simulated_annealing = algorithm.simulated_annealing.SimulatedAnnealing()
         simulated_annealing.initialise(n_side, seed_value, initial_temperature)
-        simulated_annealing.run_algorithm(max_iterations, True)
+        simulated_annealing.run_algorithm(max_iterations, True, save_circuits, save_n_iterations)
+
+        self.saved_circuits = simulated_annealing.saved_circuits
 
         self.convergence = simulated_annealing.convergence
 
@@ -88,7 +90,7 @@ class SimulatedAnnealingConvergence():
         plt.show()
 
 
-    def plot_multiple_convergence(self):
+    def plot_multiple_convergence(self, axis_lim=None):
 
 
         for i in range(0, len(self.multiple_convergence)):
@@ -120,7 +122,8 @@ class SimulatedAnnealingConvergence():
 
         plt.plot(x_values, y_values, color='blue', linewidth=2)
 
-
+        if axis_lim is not None:
+            plt.axis(axis_lim)
         plt.xlabel('iterations', fontsize=18)
         plt.ylabel('configuration length', fontsize=18)
         plt.show()
@@ -155,14 +158,9 @@ class SimulatedAnnealingConvergence():
             x_values = []
             y_values = []
 
-            if axis_lim is None:
-                for i in range(0, len(average_convergence)):
-                    x_values.append(i)
-                    y_values.append(average_convergence[i])
-            else:
-                for i in range(0, len(average_convergence)):
-                    x_values.append(i + axis_lim[0])
-                    y_values.append(average_convergence[i])
+            for i in range(0, len(average_convergence)):
+                x_values.append(i)
+                y_values.append(average_convergence[i])
 
             line, = plt.plot(x_values, y_values, linewidth=2, label=str(self.initial_temperatures[j]))
             lines.append(line)
@@ -255,3 +253,9 @@ class SimulatedAnnealingConvergence():
         plt.xlabel('final configuration length', fontsize=18)
         plt.ylabel('frequency', fontsize=18)
         plt.show()
+
+
+    def plot_saved_circuits(self):
+
+        for i in range(0, len(self.saved_circuits)):
+            self.saved_circuits[i].plot()
