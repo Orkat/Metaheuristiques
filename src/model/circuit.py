@@ -58,6 +58,20 @@ class Circuit:
 
 
 
+    def perform_random_permutation(self):
+
+        alist = []
+
+        for i in range(0, self.n_nodes):
+            index = random.randint(0, self.n_nodes - 1)
+            while index in alist:
+                index = random.randint(0, self.n_nodes - 1)
+            alist.append(index)
+
+        for i in range(0, self.n_nodes):
+            self.nodes[i].position_index = alist[i]
+
+
     def permute(self, seed):
 
         alist = list(range(0, self.n_nodes))

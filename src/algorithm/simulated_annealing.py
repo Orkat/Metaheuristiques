@@ -24,7 +24,8 @@ class SimulatedAnnealing:
 
         self.seed_value = seed_value
         self.circuit = model.circuit.Circuit(n_side)
-        self.circuit.permute(seed_value)
+        #self.circuit.permute(seed_value)
+        self.circuit.perform_random_permutation()
         self.circuit_configuration_length = self.circuit.calculate_configuration_length()
 
         self.initial_temperature = float(initial_temperature)
