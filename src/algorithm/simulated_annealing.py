@@ -40,7 +40,9 @@ class SimulatedAnnealing:
 
         if save_circuits:
             self.saved_circuits = []
+            self.saved_circuits_configuration_lengths = []
             self.saved_circuits.append(copy.deepcopy(self.circuit))
+            self.saved_circuits_configuration_lengths.append(self.circuit_configuration_length)
 
         running = True
         current_iteration = 0
@@ -57,6 +59,7 @@ class SimulatedAnnealing:
 
             if save_circuits and (current_iteration+1) % save_n_iterations == 0:
                 self.saved_circuits.append(copy.deepcopy(self.circuit))
+                self.saved_circuits_configuration_lengths.append(self.circuit_configuration_length)
 
             current_iteration += 1
             if current_iteration >= max_iterations:

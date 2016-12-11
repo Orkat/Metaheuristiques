@@ -20,7 +20,9 @@ class SimulatedAnnealingConvergence():
         simulated_annealing.initialise(n_side, seed_value, initial_temperature)
         simulated_annealing.run_algorithm(max_iterations, True, save_circuits, save_n_iterations)
 
-        self.saved_circuits = simulated_annealing.saved_circuits
+        if save_circuits:
+            self.saved_circuits = simulated_annealing.saved_circuits
+            self.saved_circuits_configuration_lengths = simulated_annealing.saved_circuits_configuration_lengths
 
         self.convergence = simulated_annealing.convergence
 
@@ -255,7 +257,9 @@ class SimulatedAnnealingConvergence():
         plt.show()
 
 
+
     def plot_saved_circuits(self):
 
         for i in range(0, len(self.saved_circuits)):
+            print(self.saved_circuits_configuration_lengths[i])
             self.saved_circuits[i].plot()
