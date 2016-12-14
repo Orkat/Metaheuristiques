@@ -1,1 +1,2 @@
 import simulated_annealing_convergence
+import genetic_algorithm_convergence
